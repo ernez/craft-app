@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -22,6 +24,14 @@ public class WorkOffer extends AbstractEntity {
     private Long id;
 
     private BigDecimal repairerPrice;
+
+    private Timestamp startTimeStamp;
+
+    private Timestamp endTimeStamp;
+
+    private int DaysCountNeeded;
+
+    private int hoursCountNeeded;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Work work;
