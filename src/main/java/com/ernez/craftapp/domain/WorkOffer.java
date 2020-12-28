@@ -1,5 +1,9 @@
 package com.ernez.craftapp.domain;
 
+/*
+Work Offers are offered by a Repairer
+ */
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
@@ -33,6 +36,12 @@ public class WorkOffer extends AbstractEntity {
 
     private int hoursCountNeeded;
 
+    //Accepted by Work Owner
+    private boolean accepted;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Work work;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Repairer repairer;
 }

@@ -1,11 +1,13 @@
 package com.ernez.craftapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -25,4 +27,10 @@ public class Firm extends AbstractEntity {
 
     @Embedded
     private Address address;
+
+    @OneToMany(
+            fetch = FetchType.LAZY, orphanRemoval = true,
+            mappedBy = "firm")
+    @JsonIgnore
+    private Set<Repairer> repairers;
 }

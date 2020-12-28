@@ -32,8 +32,8 @@ public class Work extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Repairer repairer;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Repairer repairer;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true,

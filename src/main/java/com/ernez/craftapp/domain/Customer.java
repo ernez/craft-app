@@ -19,13 +19,12 @@ public class Customer extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @MapsId
-//    @JsonIgnore
-//    private User user;
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JsonIgnore
+    private User user;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true,

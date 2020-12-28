@@ -22,8 +22,7 @@ public class Address implements Serializable {
     @Column(name = "city")
     private String city;
 
-    @NotNull
     @Size(max = 10)
-    @Column(name = "postcode", length = 10, nullable = false)
+    @Column(name = "postcode")
     private String postcode;
 }

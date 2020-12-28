@@ -19,6 +19,7 @@ public class Repairer extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @Column(name = "id")
     private Long id;
 
     @Column
@@ -27,9 +28,8 @@ public class Repairer extends AbstractEntity {
     @Column
     private String surName;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "repairerType_id", referencedColumnName = "id")
     private RepairerType repairerType;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -37,9 +37,18 @@ public class Repairer extends AbstractEntity {
     @JsonIgnore
     private User user;
 
+//    @OneToMany(cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY, orphanRemoval = true,
+//            mappedBy = "repairer")
+//    @JsonIgnore
+//    private Set<Work> works;
+
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true,
             mappedBy = "repairer")
-    @JsonIgnore
-    private Set<Work> works;
+    private Set<WorkOffer> workOffers;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="firm_id", nullable=false)
+    private Firm firm;
 }

@@ -24,7 +24,10 @@ public class RepairerType extends AbstractEntity {
 
     private String description;
 
-    //Ovo treba provjeriti da li je dovoljno samo unidirectional annotation on Repairer Entity
-    @OneToOne(mappedBy = "repairerType", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @OneToOne(mappedBy = "repairerType")
     private Repairer repairer;
+
+    //Ovo treba provjeriti da li je dovoljno samo unidirectional annotation on Repairer Entity
+//    @OneToOne(mappedBy = "repairerType", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+//    private Repairer repairer;
 }

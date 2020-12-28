@@ -6,8 +6,11 @@
 package com.ernez.craftapp.web;
 
 import com.ernez.craftapp.dto.UserDto;
+import com.ernez.craftapp.exception.DaoException;
 import com.ernez.craftapp.service.UserService;
+import com.ernez.craftapp.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +22,8 @@ import static com.ernez.craftapp.web.utils.Web.API;
  */
 @RequiredArgsConstructor
 @RestController
+//@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(API + "/users")
 public class UserController {
 
@@ -40,9 +45,14 @@ public class UserController {
         return this.userService.findById(id);
     }
 
-    @PostMapping
-    public UserDto create(@RequestBody UserDto userDto) {
-        return this.userService.create(userDto);
+    @PutMapping
+    public UserDto update(@RequestBody UserDto userDto) {
+        try {
+            return this.userService.update(userDto);
+        } catch (DaoException.NoData noData) {
+            noData.printStackTrace();
+            return null;
+        }
     }
 
     @DeleteMapping("/{id}")

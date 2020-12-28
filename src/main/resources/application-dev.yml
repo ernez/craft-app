@@ -1,0 +1,48 @@
+server.port: 8081
+
+#security.basic.enabled: false
+spring.security.user:
+  name: admin
+  password: secret
+
+
+
+# Gives us access to the H2 database web console
+spring.h2.console.enabled: true
+# Generates the database *only* if it's not there yet
+spring.jpa.hibernate.ddl-auto: create-drop
+## Creates the database in a file
+spring.datasource:
+  #  url: jdbc:h2:file:~/workbet;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
+  url: jdbc:h2:~/workbet;DB_CLOSE_ON_EXIT=TRUE
+  driverClassName: org.h2.Driver
+  username: sa
+  password:
+## For educational purposes we will show the SQL in console
+spring.jpa.properties.hibernate.show_sql: true
+
+#/h2-console
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        context: INFO
+      hibernate.mapping: DEBUG
+    web: DEBUG
+
+#show sql statement
+logging.level.org.hibernate.SQL: DEBUG
+#show sql values
+logging.level.org.hibernate.type.descriptor.sql: DEBUG
+
+spring.jpa.show-sql: true
+#spring.jpa.properties.hibernate.format_sql: true
+
+#spring:
+#  jpa:
+#    hibernate:
+#      naming-strategy: org.hibernate.cfg.DefaultComponentSafeNamingStrategy
+
+#debug: true
