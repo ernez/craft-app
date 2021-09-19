@@ -1,7 +1,7 @@
 package com.ernez.craftapp.repository;
 
 import com.ernez.craftapp.domain.Role;
-import com.ernez.craftapp.domain.enumeration.ERole;
+import com.ernez.craftapp.domain.enumeration.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
-    Optional<Role> findByName(ERole name);
+    Optional<Role> findByName(RoleName name);
 }

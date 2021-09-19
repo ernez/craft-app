@@ -1,41 +1,28 @@
 package com.ernez.craftapp.domain;
 
-import com.ernez.craftapp.domain.enumeration.ERole;
+import com.ernez.craftapp.domain.enumeration.RoleName;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Role extends AbstractEntity {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id;
+
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    private ERole name;
+    @NaturalId
+    @Column(length = 60)
+    private RoleName name;
 
-    public Role() {
-
-    }
-
-    public Role(ERole name) {
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public ERole getName() {
+    public RoleName getName() {
         return name;
     }
 
-    public void setName(ERole name) {
+    public void setName(RoleName name) {
         this.name = name;
     }
 }

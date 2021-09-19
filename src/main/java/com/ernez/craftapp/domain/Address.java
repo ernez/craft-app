@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-//@NoArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class Address implements Serializable {
     @Column(name = "address")

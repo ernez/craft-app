@@ -1,6 +1,6 @@
 package com.ernez.craftapp.security.jwt;
 
-import com.ernez.craftapp.security.services.UserDetailsImpl;
+import com.ernez.craftapp.domain.AppUser;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class JwtUtils {
 
 	public String generateJwtToken(Authentication authentication) {
 
-		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+		AppUser userPrincipal = (AppUser) authentication.getPrincipal();
 
 		return Jwts.builder()
 				.setSubject((userPrincipal.getUsername()))

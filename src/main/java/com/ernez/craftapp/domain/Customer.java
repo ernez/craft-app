@@ -24,7 +24,7 @@ public class Customer extends AbstractEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JsonIgnore
-    private User user;
+    private AppUser user;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true,
