@@ -7,19 +7,17 @@ spring.security.user:
 
 
 
-# Gives us access to the H2 database web console
-spring.h2.console.enabled: true
 # Generates the database *only* if it's not there yet
 spring.jpa.hibernate.ddl-auto: update
 ## Creates the database in a file
 spring.datasource:
-  #  url: jdbc:h2:file:~/workbet;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
-#  url: jdbc:h2:mem:test_mem;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-#  url: jdbc:h2:~/devDBs;DB_CLOSE_ON_EXIT=TRUE
-  url: jdbc:h2:./db/craft;DB_CLOSE_ON_EXIT=TRUE
-  driverClassName: org.h2.Driver
-  username: sa
-  password:
+  url: ${SPRING_DATABASE_URL}
+  driverClassName: org.postgresql.Driver
+  username: ${POSTGRES_USER}
+  password: ${POSTGRES_PASSWORD}
+
+
+#****************************
 ## For educational purposes we will show the SQL in console
 spring.jpa.properties.hibernate.show_sql: true
 
@@ -40,11 +38,3 @@ logging.level.org.hibernate.SQL: DEBUG
 logging.level.org.hibernate.type.descriptor.sql: DEBUG
 
 spring.jpa.show-sql: true
-#spring.jpa.properties.hibernate.format_sql: true
-
-#spring:
-#  jpa:
-#    hibernate:
-#      naming-strategy: org.hibernate.cfg.DefaultComponentSafeNamingStrategy
-
-#debug: true
