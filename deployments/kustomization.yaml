@@ -1,0 +1,14 @@
+# The secrets file should not be checked into Git. It's published only for demonstration purpose.
+secretGenerator:
+- name: postgres-user-pass # This is the name of particular Secret
+  literals:
+  - username=postgres
+  - password=123
+- name: postgres-db-url
+  literals:
+  - database=craft
+  - url=jdbc:postgresql://craft-app-postgres:5432/craft?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+#resources:
+#  - postgres-deployment.yaml
+#  - craft-app-server-deployment.yaml
+#  - craft-app-client.yaml

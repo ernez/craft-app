@@ -1,6 +1,8 @@
 package com.ernez.craftapp.service.impl;
 
 import com.ernez.craftapp.domain.AppUser;
+import com.ernez.craftapp.domain.Role;
+import com.ernez.craftapp.domain.enumeration.ERole;
 import com.ernez.craftapp.dto.ConfirmationToken;
 import com.ernez.craftapp.dto.RegistrationRequest;
 import com.ernez.craftapp.service.AppUserService;
@@ -8,13 +10,14 @@ import com.ernez.craftapp.service.ConfirmationTokenService;
 import com.ernez.craftapp.service.EmailService;
 import com.ernez.craftapp.service.RegistrationService;
 import com.ernez.craftapp.util.EmailValidator;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class RegistrationServiceImpl implements RegistrationService {
@@ -47,22 +50,32 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
 
         String token = appUserService.signUpUser(
-                AppUser.builder()
-                    .firstName(request.getFirstName())
-                    .lastName(request.getLastName())
-                    .email(request.getEmail())
-                    .password(request.getPassword())
-                .build());
+            AppUser.builder()
+            .firstName(request.getFirstName())
+            .lastName(request.getLastName())
+            .email(request.getEmail())
+            .password(request.getPassword())
+            .roles(generateUserCommonRoles())
+            .build()
+        );
 
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
 
-//        if (!springActiveProfiles.contains("dev")) {
-//            emailService.send(
-//                    request.getEmail(),
-//                    buildEmail(request.getFirstName(), link));
-//        }
+        if (!springActiveProfiles.contains("dev")) {
+            emailService.send(
+                request.getEmail(),
+                buildEmail(request.getFirstName(), link));
+        }
 
         return token;
+    }
+
+    private Set<Role> generateUserCommonRoles() {
+        Set<Role> roles = new HashSet<>();
+        Role userRule = new Role();
+        userRule.setName(ERole.ROLE_USER);
+        roles.add(userRule);
+        return roles;
     }
 
     @Transactional

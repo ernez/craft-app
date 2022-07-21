@@ -33,6 +33,9 @@ services:
       - data-volume:/var/lib/postgresql/data/pgdata
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
       - backend
+#    deploy:
+#      mode: replicated
+#      replicas: 2
 
 
 volumes:
@@ -40,3 +43,4 @@ volumes:
 # Networks to be created to facilitate communication between containers
 networks:
   backend:
+
