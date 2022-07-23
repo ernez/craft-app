@@ -6,7 +6,6 @@ import java.util.List;
 public class UserUtil {
     public static AppUser createDummyUser(Long id, String username, String firstName, String lastName) {
         AppUser appUser = AppUser.builder()
-                .username(username)
                 .firstName(firstName)
                 .lastName(lastName)
                 .build();

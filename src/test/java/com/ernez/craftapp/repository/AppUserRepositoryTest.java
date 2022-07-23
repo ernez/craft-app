@@ -11,11 +11,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 class AppUserRepositoryTest {
+    private static final String EMAIL = "ernez.catovic@gmail.com";
     @Autowired
     private TestEntityManager entityManager;
 
@@ -27,11 +29,10 @@ class AppUserRepositoryTest {
     @BeforeEach
     void setUp() {
         appUser = AppUser.builder()
-            .username("ernezcatovic")
             .password("pass")
             .firstName("Ernez")
             .lastName("Catovic")
-            .email("email")
+            .email(EMAIL)
             .build();
     }
 
@@ -41,27 +42,38 @@ class AppUserRepositoryTest {
         entityManager.persist(appUser);
         entityManager.flush();
         //when
-        boolean userExists = appUserRepository.existsByEmail("email");
+        boolean userExists = appUserRepository.existsByEmail(EMAIL);
         //then
         assertEquals(true, userExists);
     }
 
     @Test
-    void findByUsernameOrEmail() {
+    void findByCorrectEmail() {
         //given
         entityManager.persist(appUser);
         entityManager.flush();
         //when
-        Optional<AppUser> appUserResult = appUserRepository.findByUsernameOrEmail("ernezcatovic", "some@email");
+        Optional<AppUser> appUserResult = appUserRepository.findByEmail(EMAIL);
         //then
         assertEquals(appUser, appUserResult.get());
+    }
+
+    @Test
+    void couldNotFindByIncorrectEmail() {
+        //given
+        entityManager.persist(appUser);
+        entityManager.flush();
+        //when
+        Optional<AppUser> appUserResult = appUserRepository.findByEmail("incorrectEmail");
+        //then
+        assertTrue(!appUserResult.isPresent());
     }
 
     @Test
     void enableAppUser() {
         //given
         appUser.setEnabled(false);
-        String email = "email";
+        String email = EMAIL;
         entityManager.persist(appUser);
         entityManager.flush();
         //when
@@ -69,5 +81,4 @@ class AppUserRepositoryTest {
         //then
         assertEquals(true, appUserRepository.findByEmail(email).get().getEnabled());
     }
-
 }

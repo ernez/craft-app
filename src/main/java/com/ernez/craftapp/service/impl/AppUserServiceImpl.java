@@ -19,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -57,6 +58,7 @@ public class AppUserServiceImpl implements AppUserService {
 	}
 
 	public String signUpUser(AppUser appUser) {
+		//TODO apply Spring MVC Validation
 		boolean userExists = appUserRepository
 				.findByEmail(appUser.getEmail())
 				.isPresent();
@@ -65,14 +67,17 @@ public class AppUserServiceImpl implements AppUserService {
 			// TODO check of attributes are the same and
 			// TODO if email not confirmed send confirmation email.
 
-			throw new IllegalStateException("email already taken");
+			throw new IllegalStateException("Email already taken.");
+		}
+
+		if (appUser == null || StringUtils.isEmpty(appUser.getEmail())) {
+			throw new IllegalArgumentException("Email is empty.");
 		}
 
 		String encodedPassword = passwordEncoder
 				.encode(appUser.getPassword());
 
 		appUser.setPassword(encodedPassword);
-		appUser.setUsername(appUser.getEmail());
 		appUser.setRoles(getDefaultRoles());
 
 		appUserRepository.save(appUser);
@@ -111,7 +116,6 @@ public class AppUserServiceImpl implements AppUserService {
 
 		return new JwtResponse(jwt,
 				userPrincipal.getId(),
-				userPrincipal.getUsername(),
 				userPrincipal.getEmail(),
 				roles);
 	}

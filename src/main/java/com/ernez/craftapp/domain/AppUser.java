@@ -18,7 +18,6 @@ import java.util.Set;
 public class AppUser extends AbstractEntity {
 	private String firstName;
 	private String lastName;
-	private String username;
 	private String email;
 	private String password;
 	private String phoneNumber;
@@ -26,7 +25,7 @@ public class AppUser extends AbstractEntity {
 	private Boolean enabled = false;
 
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -37,7 +36,6 @@ public class AppUser extends AbstractEntity {
 					.id(appUser.getId())
 					.firstName(appUser.getFirstName())
 					.lastName(appUser.getLastName())
-					.userName(appUser.getUsername())
 					.email(appUser.getEmail())
 					.phoneNumber(appUser.getPhoneNumber())
 					.build();

@@ -14,10 +14,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -56,13 +59,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/v1/registration",
-                        "/api/v1/auth/signin", "/h2-console/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+            .csrf()
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .ignoringAntMatchers("/api/v1/registration", "/api/v1/auth/signin", "/h2-console/**")
+            .and()
+            .exceptionHandling()
+            .authenticationEntryPoint(new Http403ForbiddenEntryPoint())
+            .and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .authorizeRequests()
+            .antMatchers("/", "/api/v1/registration", "/api/v1/auth/signin", "/h2-console/**").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 
     }
@@ -129,38 +139,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //            }
 //        };
 //
-//    }
-
-//    @Bean
-//    @Profile("dev")
-//    public WebSecurityConfigurerAdapter developmentWebSecurityConfigurerAdapter() {
-//        return new WebSecurityConfigurerAdapter() {
-//            @Bean
-//            @Override
-//            public AuthenticationManager authenticationManagerBean() throws Exception {
-//                return super.authenticationManagerBean();
-//            }
-//
-//            @Override
-//            public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-//                authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//            }
-//
-//            @Override
-//            protected void configure(HttpSecurity http) throws Exception {
-//                http
-//                        .csrf().disable()
-//                        .authorizeRequests()
-//                        .antMatchers("/**").permitAll();
-//            }
-//
-//
-//            @Override
-//            public void configure(WebSecurity webSecurity) {
-//                webSecurity.ignoring().antMatchers("/**");
-//                log.info("Authentication Configurer started in development mode. All the security is disabled.");
-//            }
-//        };
 //    }
 
     private CorsConfigurationSource corsConfigurationSource(String corsOrigin) {

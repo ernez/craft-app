@@ -30,7 +30,6 @@ public class UserDto {
 
     public static AppUser mapAppUser(UserDto userDto) {
         AppUser appUser = AppUser.builder()
-                .username(userDto.getUserName())
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
                 .email(userDto.getEmail())

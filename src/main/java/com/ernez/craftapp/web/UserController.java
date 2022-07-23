@@ -71,7 +71,6 @@ public class UserController {
 
     private AppUser modifyAppUser(AppUser appUser, UserDto userDto) {
         appUser.setId(userDto.getId());
-        appUser.setUsername(userDto.getUserName());
         appUser.setFirstName(userDto.getFirstName());
         appUser.setLastName(userDto.getLastName());
         appUser.setEmail(userDto.getEmail());

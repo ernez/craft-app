@@ -29,6 +29,7 @@ logging:
   level:
     org:
       springframework:
+        security: DEBUG
         web: DEBUG
         context: INFO
       hibernate.mapping: DEBUG
