@@ -27,15 +27,4 @@ public class UserDto {
     private String phoneNumber; // TODO link to Contact of Telephone type
     private String userName;
     private String password;
-
-    public static AppUser mapAppUser(UserDto userDto) {
-        AppUser appUser = AppUser.builder()
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .email(userDto.getEmail())
-                .phoneNumber(userDto.getPhoneNumber())
-                .build();
-        appUser.setId(userDto.getId());
-        return appUser;
-    }
 }

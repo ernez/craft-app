@@ -31,7 +31,7 @@ public class AppUser extends AbstractEntity {
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 
-	public static UserDto mapToDto(AppUser appUser) {
+	public static UserDto mapToUserDto(AppUser appUser) {
 			return UserDto.builder()
 					.id(appUser.getId())
 					.firstName(appUser.getFirstName())
