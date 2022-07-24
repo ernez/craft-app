@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +50,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody UserDto userDto) throws Exception {
+    public void update(@PathVariable Long id, @RequestBody @Valid UserDto userDto) throws Exception {
         AppUser appUser = appUserRepository.findById(id).orElseThrow(() ->
                 new Exception("The required user does not exist."));
         if(appUser.getRoles() == null || appUser.getRoles().isEmpty()) {
