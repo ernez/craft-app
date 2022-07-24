@@ -36,7 +36,7 @@ import java.util.Arrays;
          jsr250Enabled = true,
         prePostEnabled = true)
 @Slf4j
-@Profile("!test")
+@Profile("nonTest")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
