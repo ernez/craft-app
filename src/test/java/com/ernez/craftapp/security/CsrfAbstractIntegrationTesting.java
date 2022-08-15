@@ -12,20 +12,20 @@ import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 
 @RunWith(SpringRunner.class)
-public class CsrfAbstractIntegrationTest {
+public class CsrfAbstractIntegrationTesting {
 
     @Autowired
     protected MockMvc mvc;
 
     protected RequestPostProcessor testUser() {
-        return user("user").password("userPass").roles("USER");
+        return user("user1").password("user1Pass").roles("USER");
     }
 
     protected String createRegistrationRequest() throws JsonProcessingException {
         return new ObjectMapper().writeValueAsString(new RegistrationRequest(
             "firstName",
             "lastName",
-                "email",
+                "enacatovis@gmail.com",
             "pass"));
     }
 }

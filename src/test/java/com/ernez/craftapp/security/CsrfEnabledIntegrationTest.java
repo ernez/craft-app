@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test-SecurityWithCsrfConfig")
 @WebMvcTest(value = RegistrationController.class)
 @AutoConfigureMockMvc(addFilters = true)
-public class CsrfEnabledIntegrationTest extends CsrfAbstractIntegrationTest {
+public class CsrfEnabledIntegrationTest extends CsrfAbstractIntegrationTesting {
     @MockBean
     private RegistrationService registrationService;
 
@@ -30,7 +30,7 @@ public class CsrfEnabledIntegrationTest extends CsrfAbstractIntegrationTest {
     }
 
     @Test
-    public void givenCsrf_whenAddFoo_thenCreated() throws Exception {
+    public void givenCsrf_whenPostRegistration_thenCreated() throws Exception {
         mvc.perform(
                 post("/api/v1/registration").contentType(MediaType.APPLICATION_JSON)
                         .content(createRegistrationRequest())

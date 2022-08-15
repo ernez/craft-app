@@ -1,16 +1,18 @@
 package com.ernez.craftapp.web;
 
 import com.ernez.craftapp.dto.request.LoginRequest;
-import com.ernez.craftapp.repository.AppUserRepository;
-import com.ernez.craftapp.repository.RoleRepository;
-import com.ernez.craftapp.security.jwt.JwtUtils;
+import com.ernez.craftapp.dto.response.JwtResponse;
 import com.ernez.craftapp.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -25,7 +27,19 @@ public class AuthController {
 	}
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> signIn(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> signIn(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+		final JwtResponse jwtResponse = appUserService.signIn(loginRequest);
+		response.addCookie(createCookie(jwtResponse.getAccessToken()));
 		return ResponseEntity.ok(appUserService.signIn(loginRequest));
+	}
+
+	private Cookie createCookie(String jwt) {
+		Cookie cookie = new Cookie("JWT", jwt);
+		cookie.setMaxAge(24 * 60 * 60); // expires in 1 day
+		cookie.setSecure(true);
+		cookie.setHttpOnly(true);
+		cookie.setPath("/");
+		cookie.setDomain("localhost");
+		return cookie;
 	}
 }

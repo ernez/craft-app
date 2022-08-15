@@ -15,12 +15,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test-SecurityWithoutCsrfConfig")
 @WebMvcTest(value = RegistrationController.class)
 @AutoConfigureMockMvc(addFilters = true)
-public class CsrfDisabledIntegrationTest extends CsrfAbstractIntegrationTest {
+public class CsrfDisabledIntegrationTest extends CsrfAbstractIntegrationTesting {
     @MockBean
     private RegistrationService registrationService;
 
     @Test
-    public void givenNotAuth_whenAddFoo_thenUnauthorized() throws Exception {
+    public void givenNotAuth_whenRegister_thenUnauthorized() throws Exception {
         mvc.perform(
                 post("/api/v1/registration").contentType(MediaType.APPLICATION_JSON)
                         .content(createRegistrationRequest())
@@ -28,7 +28,7 @@ public class CsrfDisabledIntegrationTest extends CsrfAbstractIntegrationTest {
     }
 
     @Test
-    public void givenAuth_whenAddFoo_thenCreated() throws Exception {
+    public void givenAuth_whenRegister_thenCreated() throws Exception {
         mvc.perform(
                 post("/api/v1/registration").contentType(MediaType.APPLICATION_JSON)
                         .content(createRegistrationRequest())

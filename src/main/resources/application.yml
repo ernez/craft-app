@@ -11,8 +11,10 @@ spring.profiles.active: ${SPRING_PROFILES_ACTIVE:dev, nonTest}
 #spring.jpa.hibernate.ddl-auto: update
 
   # App Properties
-bezkoder.app.jwtSecret: bezKoderSecretKey
-bezkoder.app.jwtExpirationMs: 86400000
+craftapp:
+  app:
+    jwtSecret: craftAppSecretKey
+    jwtExpirationMs: 86400000
 
 spring.mail:
   host: smtp.gmail.com
