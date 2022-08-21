@@ -1,4 +1,4 @@
-spring.profiles.active: ${SPRING_PROFILES_ACTIVE:dev, nonTest}
+spring.profiles.active: ${SPRING_PROFILES_ACTIVE:stage, nonTest}
 
 #spring.datasource.url: jdbc:postgresql://localhost:5432/testdb
 #spring.datasource.username: postgres

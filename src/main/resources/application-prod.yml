@@ -27,10 +27,10 @@ logging:
   level:
     org:
       springframework:
-        web: DEBUG
+        web: INFO
         context: INFO
-      hibernate.mapping: DEBUG
-    web: DEBUG
+      hibernate: ERROR
+    web: INFO
 
 #show sql statement
 logging.level.org.hibernate.SQL: DEBUG

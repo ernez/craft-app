@@ -32,7 +32,7 @@ logging:
         security: DEBUG
         web: DEBUG
         context: INFO
-      hibernate.mapping: DEBUG
+      hibernate: DEBUG
     web: DEBUG
 
 #show sql statement
