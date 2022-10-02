@@ -9,3 +9,7 @@ Ena Access Token:
 
 ...Trebam kreirati java entity class koja odgovara user_roles tablici i onda u AppUserServiceImpl prijke linije: appUserRepository.save(appUser);
 spasiti AppUserRole entity !
+
+http://192.168.124.96:30203/api/v1/auth/signin
+
+Where 192.168.124.96 is IP address of the Cluster Node

@@ -17,7 +17,7 @@ services:
       - backend
 
   craft-app:
-    image: "ernez/craftapp"
+    image: "ernezdocker/craft-app"
     build: .
     container_name: craftapp
     ports:

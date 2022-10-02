@@ -16,7 +16,7 @@ spec:
     spec:                     # Spec for the containers that will be run in the Pods
       containers:
       - name: craft-app-server
-        image: ernez/craftapp
+        image: ernezdocker/craft-app
         imagePullPolicy: IfNotPresent
         ports:
           - name: http

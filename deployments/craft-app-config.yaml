@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: craft-app-config
 data:
-  POSTGRES_DB: postgres
-  SPRING_DATABASE_URL: jdbc:postgresql://craft-app-postgres:5432/postgres
-  SPRING_PROFILES_ACTIVE: prod
   PGDATA: /var/lib/postgresql/data/pgdata
+  #
+  SPRING_DATABASE_URL: jdbc:postgresql://craft-app-postgres:5432/postgres
+  SPRING_PROFILES_ACTIVE: prod, nonTest
