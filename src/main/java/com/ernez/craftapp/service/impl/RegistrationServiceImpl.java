@@ -61,11 +61,11 @@ public class RegistrationServiceImpl implements RegistrationService {
 
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
 
-        if (!springActiveProfiles.contains("dev")) {
-            emailService.send(
-                request.getEmail(),
-                buildEmail(request.getFirstName(), link));
-        }
+//        if (!springActiveProfiles.contains("dev")) {
+//            emailService.send(
+//                request.getEmail(),
+//                buildEmail(request.getFirstName(), link));
+//        }
 
         return token;
     }

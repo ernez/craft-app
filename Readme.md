@@ -12,4 +12,4 @@ spasiti AppUserRole entity !
 
 http://192.168.124.96:30203/api/v1/auth/signin
 
-Where 192.168.124.96 is IP address of the Cluster Node
+Where 192.168.124.96 is IP address of the Cluster Node (kubectl get nodes -o wide)

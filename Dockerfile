@@ -3,8 +3,8 @@ MAINTAINER ernezcatovic@gmail.com
 
 ARG JAR_FILE=target/craft-app-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} /app/app.jar
-COPY src/main/resources/db/ /app/db/
-VOLUME /app/db
+#COPY src/main/resources/db/ /app/db/
+#VOLUME /app/db
 EXPOSE 8081
 
 WORKDIR /app
