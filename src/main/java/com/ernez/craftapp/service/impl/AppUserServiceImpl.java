@@ -8,7 +8,6 @@ import com.ernez.craftapp.repository.AppUserRepository;
 import com.ernez.craftapp.security.UserPrincipal;
 import com.ernez.craftapp.security.jwt.JwtUtils;
 import com.ernez.craftapp.service.AppUserService;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
