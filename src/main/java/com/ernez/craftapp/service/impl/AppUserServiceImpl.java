@@ -1,10 +1,12 @@
 package com.ernez.craftapp.service.impl;
 
 import com.ernez.craftapp.domain.AppUser;
+import com.ernez.craftapp.domain.Role;
 import com.ernez.craftapp.dto.ConfirmationToken;
 import com.ernez.craftapp.dto.request.LoginRequest;
 import com.ernez.craftapp.dto.response.JwtResponse;
 import com.ernez.craftapp.repository.AppUserRepository;
+import com.ernez.craftapp.repository.RoleRepository;
 import com.ernez.craftapp.security.UserPrincipal;
 import com.ernez.craftapp.security.jwt.JwtUtils;
 import com.ernez.craftapp.service.AppUserService;
@@ -17,10 +19,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -38,17 +43,22 @@ public class AppUserServiceImpl implements AppUserService {
 	private final ConfirmationTokenServiceImpl confirmationTokenService;
 	private final AuthenticationManager authenticationManager;
 	private final JwtUtils jwtUtils;
+	private final RoleRepository roleRepository;
 
 	@Autowired
-	public AppUserServiceImpl(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder, ConfirmationTokenServiceImpl confirmationTokenService, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+	public AppUserServiceImpl(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder,
+							  ConfirmationTokenServiceImpl confirmationTokenService, AuthenticationManager authenticationManager,
+							  JwtUtils jwtUtils, RoleRepository roleRepository) {
 		this.appUserRepository = appUserRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.confirmationTokenService = confirmationTokenService;
 		this.authenticationManager = authenticationManager;
 		this.jwtUtils = jwtUtils;
+		this.roleRepository = roleRepository;
 	}
 
 	public String signUpUser(AppUser appUser) {
+		//TODO apply Spring MVC Validation
 		boolean userExists = appUserRepository
 				.findByEmail(appUser.getEmail())
 				.isPresent();
@@ -57,13 +67,18 @@ public class AppUserServiceImpl implements AppUserService {
 			// TODO check of attributes are the same and
 			// TODO if email not confirmed send confirmation email.
 
-			throw new IllegalStateException("email already taken");
+			throw new IllegalStateException("Email already taken.");
+		}
+
+		if (appUser == null || StringUtils.isEmpty(appUser.getEmail())) {
+			throw new IllegalArgumentException("Email is empty.");
 		}
 
 		String encodedPassword = passwordEncoder
 				.encode(appUser.getPassword());
 
 		appUser.setPassword(encodedPassword);
+		appUser.setRoles(getDefaultRoles());
 
 		appUserRepository.save(appUser);
 
@@ -82,10 +97,14 @@ public class AppUserServiceImpl implements AppUserService {
 		return token;
 	}
 
+	private Set<Role> getDefaultRoles() {
+		return new HashSet<>(roleRepository.findAllByIsDefault(true));
+	}
+
 	@Override
 	public JwtResponse signIn(LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
@@ -97,7 +116,6 @@ public class AppUserServiceImpl implements AppUserService {
 
 		return new JwtResponse(jwt,
 				userPrincipal.getId(),
-				userPrincipal.getUsername(),
 				userPrincipal.getEmail(),
 				roles);
 	}
@@ -138,7 +156,8 @@ public class AppUserServiceImpl implements AppUserService {
 
 	@Override
 	public AppUser create(AppUser appUser) {
-		return null;
+		log.debug("Request to get create User {}", appUser.getEmail());
+		return this.appUserRepository.save(appUser);
 	}
 
 	@Override

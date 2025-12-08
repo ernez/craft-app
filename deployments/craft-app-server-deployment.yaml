@@ -16,14 +16,14 @@ spec:
     spec:                     # Spec for the containers that will be run in the Pods
       containers:
       - name: craft-app-server
-        image: ernez/craftapp
-        imagePullPolicy: IfNotPresent
+        image: ernezdocker/craft-app
+        imagePullPolicy: Always
         ports:
           - name: http
             containerPort: 8081 # The port that the container exposes
         resources:
           limits:
-            cpu: 1
+            cpu: "1"
             memory: "600Mi"
         envFrom: # Environment variables passed to the container
           - configMapRef:
@@ -41,7 +41,7 @@ spec:
   type: NodePort              # The service will be exposed by opening a Port on each node and proxying it. 
   selector:
     app: craft-app-server   # The service exposes Pods with label `app=polling-app-server`
-  ports:                      # Forward incoming connections on port 8080 to the target port 8080
+  ports:                      # Forward incoming connections on port 8080 to the target port 8081
   - name: http
     port: 8080
     targetPort: 8081

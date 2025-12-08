@@ -40,7 +40,22 @@ spec:
   selector:                       # Selects any Pod with labels `app=polling-app,tier=mysql`
     app: craft-app
     tier: postgres
-  clusterIP: None
+---
+apiVersion: v1                    # API version
+kind: Service                     # Type of kubernetes resource
+metadata:
+  name: craft-app-postgres-external         # Name of the resource
+  labels:                         # Labels that will be applied to the resource
+    tier: external-access
+spec:
+  type: NodePort
+  ports: # Forward incoming connections on port 8082 to the target port 5432
+    - name: postgres-nodeport
+      port: 8082
+      targetPort: 5432
+  selector:                       # Selects any Pod with labels `app=polling-app,tier=postgres`
+    app: craft-app
+    tier: postgres
 ---
 apiVersion: apps/v1
 kind: Deployment                    # Type of the kubernetes resource

@@ -1,25 +1,14 @@
 server.port: 8081
 
-#security.basic.enabled: false
-spring.security.user:
-  name: admin
-  password: secret
-
-
-
 # Generates the database *only* if it's not there yet
 spring.jpa.hibernate.ddl-auto: update
-## Creates the database in a file
 spring.datasource:
-  url: ${SPRING_DATABASE_URL}
+  url: jdbc:postgresql://localhost:5432/postgres
   driverClassName: org.postgresql.Driver
-  username: ${POSTGRES_USER}
-  password: ${POSTGRES_PASSWORD}
-
-
-#****************************
+  username: postgres
+  password: 123
 ## For educational purposes we will show the SQL in console
-spring.jpa.properties.hibernate.show_sql: true
+spring.jpa.properties.hibernate.show_sql: false
 
 #/h2-console
 
@@ -27,10 +16,10 @@ logging:
   level:
     org:
       springframework:
-        web: INFO
+        web: DEBUG
         context: INFO
-      hibernate: ERROR
-    web: INFO
+      hibernate.mapping: DEBUG
+    web: DEBUG
 
 #show sql statement
 logging.level.org.hibernate.SQL: DEBUG
@@ -38,3 +27,11 @@ logging.level.org.hibernate.SQL: DEBUG
 logging.level.org.hibernate.type.descriptor.sql: DEBUG
 
 spring.jpa.show-sql: true
+#spring.jpa.properties.hibernate.format_sql: true
+
+#spring:
+#  jpa:
+#    hibernate:
+#      naming-strategy: org.hibernate.cfg.DefaultComponentSafeNamingStrategy
+
+#debug: true

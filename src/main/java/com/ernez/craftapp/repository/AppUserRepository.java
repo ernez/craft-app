@@ -16,10 +16,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     List<AppUser> findAllByEnabled(Boolean enabled);
 
     Optional<AppUser> findByEmail(String email);
-    Boolean existsByUsername(String username);
     Boolean existsByEmail(String email);
-
-    Optional<AppUser> findByUsernameOrEmail(String username, String email);
 
     @Modifying(clearAutomatically = true)
     @Query("update AppUser a " +

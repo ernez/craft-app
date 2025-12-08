@@ -18,12 +18,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        // Let people login with either username or email
-        AppUser user = appUserRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with username or email : " + usernameOrEmail)
-                );
+    public UserDetails loadUserByUsername(String email)  {
+        AppUser user = appUserRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new UsernameNotFoundException("User not found with email : " + email)
+            );
 
         return UserPrincipal.create(user);
     }

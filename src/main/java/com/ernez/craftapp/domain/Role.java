@@ -1,6 +1,6 @@
 package com.ernez.craftapp.domain;
 
-import com.ernez.craftapp.domain.enumeration.RoleName;
+import com.ernez.craftapp.domain.enumeration.ERole;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -16,13 +16,15 @@ public class Role extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @NaturalId
     @Column(length = 60)
-    private RoleName name;
+    private ERole name;
 
-    public RoleName getName() {
+    private Boolean isDefault;
+
+    public ERole getName() {
         return name;
     }
 
-    public void setName(RoleName name) {
+    public void setName(ERole name) {
         this.name = name;
     }
 }
