@@ -1,0 +1,5 @@
+Implement a 'Bid Escalation' feature for the House Jobs Auction Platform. When a craftsman places a bid, allow them to optionally set a maximum bid amount. If a new bid is placed that is lower than their current bid but higher than their original bid, automatically increase their bid to be slightly higher than the new bid, up to their maximum set amount. Ensure this is clearly communicated to both the bidder and the job announcer.
+
+Create a review and rating system for the House Jobs Auction Platform. After a job is marked as 'completed', allow the Job Announcer to leave a star rating (1-5) and a written review for the selected Craftsman. Display these reviews on the Craftsman's profile page. Ensure appropriate moderation and flagging mechanisms are in place.
+
+Integrate a real-time notification system for the House Jobs Auction Platform. Users should receive instant notifications for events such as: new job postings matching their skills, new bids placed on their jobs, job status changes (e.g., 'in-progress', 'completed'), and new messages. Consider using WebSockets for real-time delivery.

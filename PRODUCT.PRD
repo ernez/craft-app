@@ -1,24 +1,15 @@
 # Product Requirements Document (PRD)
-# My Award - Rewards Management System
-
-## Executive Summary
-A full-stack rewards management platform that connects companies, shoppers, and customers through a structured reward system. Companies can offer percentage-based rewards through various bonus categories, which are processed by shoppers and delivered to customers.
-
-## Product Vision
-To create a seamless rewards ecosystem that incentivizes customer loyalty while providing companies with effective marketing tools and shoppers with earning opportunities.
-
-## Target Users
+# House Jobs Auction Platform web application
 
 ### Primary Users
-1. **Companies** - Businesses offering rewards to attract and retain customers
-2. **Shoppers** - Individuals who work for companies to process and manage rewards
-3. **Customers** - End users who receive and redeem rewards
+1. **House Job Announcers** - Standard end Customers who post house jobs for bidding
+2. **Craft men/Masters** - Individuals who bid on house jobs posted by announcers
+3. **Admins** - Platform administrators who manage users and oversee platform operations
 
 ### User Roles & Permissions
 - **Admin**: Full system access, user management, system configuration
-- **Company**: Manage bonus categories, view reward analytics, manage shoppers
-- **Shopper**: Process rewards, manage customer interactions, view assigned rewards
-- **Customer**: View rewards, redeem benefits, manage profile
+- **Job Announcer Customer**: Post and manage house jobs, view bids, select craftsmen
+- **Craftsman/Master Customer**: Browse house jobs, place bids, manage profile
 
 ## Core Features
 
@@ -26,42 +17,48 @@ To create a seamless rewards ecosystem that incentivizes customer loyalty while 
 - JWT-based authentication with 1-hour token expiration
 - OAuth2 Google integration (completed) and Facebook integration (planned)
 - Role-based access control with comprehensive permissions
-- Secure password handling with BCrypt encryption (strength 12)
+- Secure password hashing with BCrypt encryption (strength 12)
 
-### Company Management
-- Company profile management
-- Bonus category creation and management
-- Transaction percentage configuration
-- Shopper assignment and management
+### Craft men Management
+- Craftsman profile management
+- Skill and service category selection
+- Bid management and tracking
+- Job history and reviews
 
-### Reward System
-- Percentage-based reward calculations
-- Multi-category bonus structure
-- Reward status tracking (pending, approved, completed, rejected)
+### House Job Announcer Management
+- Job posting and management
+- Bid review and selection
+- Job status tracking (open, in-progress, completed, cancelled)
 - Transaction history and analytics
 
-### User Management
+
+### User Management (both Craftsmen and Announcers)
 - User registration and profile management
-- Role assignment and permissions
+- Role assignment and permissions (Announcer or Craftsman roles)
 - Address and contact information management
 
 ## Technical Requirements
 
 ### Backend Requirements
-- Java 24 with Spring Boot 4.0.0-M1
+- Java 24 with Spring Boot 4
 - Spring Security for authentication and authorization
 - JPA/Hibernate for data persistence
 - Liquibase for database migration management
 - H2 database for development, production-ready database for deployment
 - Postgres DB for production
-- RESTful API design with OpenAPI documentation
+- REST-ful API design with OpenAPI specification and documentation
+- unit and integration testing with JUnit and Mockito
+- e2e testing with Selenium or Cypress
 
 ### Frontend Requirements
-- Angular 19 with TypeScript
-- Server-side rendering (SSR) support
-- Responsive design with SCSS
+- Angular 21 with TypeScript
+- Angular CLI for project scaffolding and management
+- CoreUI components
+- RxJS for reactive programming
+- Responsive design with Tailwind CSS
 - Component-based architecture
 - HTTP client for API integration
+
 
 ### Database Requirements
 - Relational database design with proper foreign key relationships
@@ -70,7 +67,7 @@ To create a seamless rewards ecosystem that incentivizes customer loyalty while 
 - Migration management through Liquibase
 
 ### Security Requirements
-- Encrypted password storage
+- Hashed password storage
 - JWT token-based authentication
 - OAuth2 social login integration
 - Role-based access control
@@ -78,11 +75,11 @@ To create a seamless rewards ecosystem that incentivizes customer loyalty while 
 - Input validation and sanitization
 
 ## Success Metrics
-- User adoption rate across all three user types
+- Customer adoption rate across both three user types
 - Transaction volume and success rate
 - System uptime and performance
 - User engagement and retention rates
-- Reward processing efficiency
+- Job posting and bidding efficiency
 
 ## Timeline & Milestones
 
@@ -112,7 +109,7 @@ To create a seamless rewards ecosystem that incentivizes customer loyalty while 
 
 ## Risk Assessment
 - **Technical Debt**: Current use of NoOpPasswordEncoder needs immediate attention
-- **OAuth2 Integration**: LinkedIn integration requires completion for social login
+- **OAuth2 Integration**: Facebook integration requires completion for social login
 - **Service Layer**: Business logic layer needs full implementation
 - **Database**: Migration from H2 to production database required
 - **Testing**: Comprehensive test coverage needed for all layers
@@ -127,7 +124,17 @@ To create a seamless rewards ecosystem that incentivizes customer loyalty while 
 
 ## Constraints
 - Java 21 minimum requirement. Try to use Java 24 if possible
-- Angular 19 framework version
+- Angular 19 framework version minimum requirement. Try to use Angular 21 if possible
 - Try to implement java Virtual Threads for better performance
-- Spring Boot 4.0.0 compatibility
+- Spring Boot 4 compatibility
 - Browser compatibility for modern web standards
+
+## Future Enhancements
+- Mobile application development (iOS and Android)
+- Advanced AI-driven job matching algorithms
+- Integration with third-party payment gateways
+- Multi-language support for global reach
+- Enhanced analytics with machine learning insights
+- Gamification elements to boost user engagement
+- Community forums and support channels
+- Loyalty programs and referral incentives
