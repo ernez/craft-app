@@ -1,0 +1,133 @@
+# Product Requirements Document (PRD)
+# My Award - Rewards Management System
+
+## Executive Summary
+A full-stack rewards management platform that connects companies, shoppers, and customers through a structured reward system. Companies can offer percentage-based rewards through various bonus categories, which are processed by shoppers and delivered to customers.
+
+## Product Vision
+To create a seamless rewards ecosystem that incentivizes customer loyalty while providing companies with effective marketing tools and shoppers with earning opportunities.
+
+## Target Users
+
+### Primary Users
+1. **Companies** - Businesses offering rewards to attract and retain customers
+2. **Shoppers** - Individuals who work for companies to process and manage rewards
+3. **Customers** - End users who receive and redeem rewards
+
+### User Roles & Permissions
+- **Admin**: Full system access, user management, system configuration
+- **Company**: Manage bonus categories, view reward analytics, manage shoppers
+- **Shopper**: Process rewards, manage customer interactions, view assigned rewards
+- **Customer**: View rewards, redeem benefits, manage profile
+
+## Core Features
+
+### Authentication & Security
+- JWT-based authentication with 1-hour token expiration
+- OAuth2 Google integration (completed) and Facebook integration (planned)
+- Role-based access control with comprehensive permissions
+- Secure password handling with BCrypt encryption (strength 12)
+
+### Company Management
+- Company profile management
+- Bonus category creation and management
+- Transaction percentage configuration
+- Shopper assignment and management
+
+### Reward System
+- Percentage-based reward calculations
+- Multi-category bonus structure
+- Reward status tracking (pending, approved, completed, rejected)
+- Transaction history and analytics
+
+### User Management
+- User registration and profile management
+- Role assignment and permissions
+- Address and contact information management
+
+## Technical Requirements
+
+### Backend Requirements
+- Java 24 with Spring Boot 4.0.0-M1
+- Spring Security for authentication and authorization
+- JPA/Hibernate for data persistence
+- Liquibase for database migration management
+- H2 database for development, production-ready database for deployment
+- Postgres DB for production
+- RESTful API design with OpenAPI documentation
+
+### Frontend Requirements
+- Angular 19 with TypeScript
+- Server-side rendering (SSR) support
+- Responsive design with SCSS
+- Component-based architecture
+- HTTP client for API integration
+
+### Database Requirements
+- Relational database design with proper foreign key relationships
+- Audit trail functionality (created/updated timestamps)
+- Transaction integrity and ACID compliance
+- Migration management through Liquibase
+
+### Security Requirements
+- Encrypted password storage
+- JWT token-based authentication
+- OAuth2 social login integration
+- Role-based access control
+- API endpoint protection
+- Input validation and sanitization
+
+## Success Metrics
+- User adoption rate across all three user types
+- Transaction volume and success rate
+- System uptime and performance
+- User engagement and retention rates
+- Reward processing efficiency
+
+## Timeline & Milestones
+
+### Phase 1: Core Platform
+- User authentication and role management
+- Basic entity modeling and database setup
+- JWT authentication implementation
+- Core API endpoints
+
+### Phase 2: Business Logic
+- Complete service layer implementation
+- DTO mappers and data validation
+- Enhanced security with BCrypt
+- LinkedIn OAuth2 completion
+
+### Phase 3: Advanced Features
+- Analytics dashboard
+- Notification system
+- Advanced reporting
+- Mobile responsive optimizations
+
+### Phase 4: Production Readiness
+- Production database configuration
+- Performance optimization
+- Security audit and testing
+- Deployment pipeline setup
+
+## Risk Assessment
+- **Technical Debt**: Current use of NoOpPasswordEncoder needs immediate attention
+- **OAuth2 Integration**: LinkedIn integration requires completion for social login
+- **Service Layer**: Business logic layer needs full implementation
+- **Database**: Migration from H2 to production database required
+- **Testing**: Comprehensive test coverage needed for all layers
+
+## Dependencies
+- Spring Boot ecosystem
+- Angular framework and tooling
+- H2/Production database
+- Google, Facebook OAuth2 API
+- Maven build system
+- npm/Node.js for frontend
+
+## Constraints
+- Java 21 minimum requirement. Try to use Java 24 if possible
+- Angular 19 framework version
+- Try to implement java Virtual Threads for better performance
+- Spring Boot 4.0.0 compatibility
+- Browser compatibility for modern web standards
